@@ -1,0 +1,17 @@
+Content of test case
+=====================
+Test case is found in time_a60hz.c
+It calls sample functions that uses L1 cache to some extent over time.
+The sequence of functions of different cache usage here
+   Time_TypeP3,  Time_TypeP4,  Time_TypeP5
+is created to achieve execution time behaviour according to picture in full specification.
+
+The profiling usage in this template is started and ended using:
+   START_PROFILING(Tint, Ttimeout)
+   STOP_PROFILING(&Texe)
+
+The functions (Time_TypeP3 etc.) for various cache usage are found in time_types.c
+
+Main program in test_time_a60hz.c
+
+Makefile for cross compiling for PowerPC e500v2 architecture (-mcpu=8548)

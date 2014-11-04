@@ -1,0 +1,115 @@
+--- sched_orig.c	2014-02-26 16:15:37.093179672 +0100
++++ sched_mod.c	2014-02-26 17:49:10.222179672 +0100
+@@ -4971,6 +4971,9 @@
+ 
+ 	return ns;
+ }
++// !----------------- SCHEDULER MOD: AF 20140225 - Send bugs to ***REMOVED*** !----------------- //
++EXPORT_SYMBOL(task_sched_runtime);
++// !--------------- EOF SCHEDULER MOD: AF 20140225 - Send bugs to ***REMOVED*** !--------------- //
+ 
+ /*
+  * Return sum_exec_runtime for the thread group.
+@@ -5406,8 +5409,39 @@
+ 	}
+ }
+ 
++
++
++// !----------------- SCHEDULER MOD: AF 20140225 - Send bugs to ***REMOVED*** !----------------- //
++// The pid to lock the scheduler to run (set to 0 for scheduler to operate normally)
++static pid_t pid_force_run = 0;
++
++// This function locks the scheduler to run a given task with p_id (set p_id=0 to resume scheduling)
++void 			
++set_pid_force_run( const pid_t p_id ){
++	static pid_t last_p_id = 0;
++	static spinlock_t lock = SPIN_LOCK_UNLOCKED;
++	if( p_id != last_p_id ){ 
++		// Lock kernel
++		spin_lock( &lock );
++		// Set pid that the scheduler will run
++		pid_force_run = p_id;
++		// Unlock kernel
++		spin_unlock( &lock );
++	}
++	last_p_id = p_id;
++}
++EXPORT_SYMBOL(set_pid_force_run);
++
+ /*
+  * schedule() is the main scheduler function.
++ * 
++ * AF MOD: 	When the scheduler is locked to run a given task, the prev and next task pointers should be 
++ * 			equal to rq->curr (the current task with pid <pid_force_run>) until the scheduler is 
++ * 			reset (reset is done by setting <pid_force_run> = 0 using the set_pid_force_run() function).
++ * 			During this time, when prev and next task pointers are equal, no other tasks than current 
++ * 			will be scheduled making sure that our task does not get interrupted and no context switch will occure.
++ * 			After reset the scheduler will go on with its ordinary scheduling duties.
++ *  
+  */
+ asmlinkage void __sched schedule(void)
+ {
+@@ -5415,42 +5449,45 @@
+ 	unsigned long *switch_count;
+ 	struct rq *rq;
+ 	int cpu;
++	unsigned char sched_block = 0; 	// AF MOD
+ 
+ need_resched:
+ 	preempt_disable();
+ 	cpu = smp_processor_id();
+ 	rq = cpu_rq(cpu);
++	sched_block = ((pid_force_run > 1) && (rq->curr->pid == pid_force_run));  // AF MOD
++	
+ 	rcu_sched_qs(cpu);
+ 	prev = rq->curr;
+ 	switch_count = &prev->nivcsw;
+ 
+-	release_kernel_lock(prev);
++	if( !sched_block ) 	{ release_kernel_lock(prev); } // AF MOD
+ need_resched_nonpreemptible:
+ 
+-	schedule_debug(prev);
++	if( !sched_block ) 	{ schedule_debug(prev); } // AF MOD
+ 
+ 	if (sched_feat(HRTICK))
+ 		hrtick_clear(rq);
+ 
+ 	spin_lock_irq(&rq->lock);
+ 	update_rq_clock(rq);
+-	clear_tsk_need_resched(prev);
++	if( !sched_block ) 	{ clear_tsk_need_resched(prev); } // AF MOD
+ 
+ 	if (prev->state && !(preempt_count() & PREEMPT_ACTIVE)) {
+ 		if (unlikely(signal_pending_state(prev->state, prev)))
+ 			prev->state = TASK_RUNNING;
+-		else
++		else if (!sched_block) // AF MOD
+ 			deactivate_task(rq, prev, 1);
+ 		switch_count = &prev->nvcsw;
+ 	}
+ 
+-	pre_schedule(rq, prev);
++	if( !sched_block ) 	{ pre_schedule(rq, prev); } // AF MOD
+ 
+ 	if (unlikely(!rq->nr_running))
+ 		idle_balance(cpu, rq);
+ 
+-	put_prev_task(rq, prev);
+-	next = pick_next_task(rq);
++	if( !sched_block ) 	{ put_prev_task(rq, prev); } // AF MOD
++	next = ( !sched_block ) ? pick_next_task(rq) : prev; // AF MOD
+ 
+ 	if (likely(prev != next)) {
+ 		sched_info_switch(prev, next);
+@@ -5480,6 +5517,9 @@
+ 		goto need_resched;
+ }
+ EXPORT_SYMBOL(schedule);
++// !--------------- EOF SCHEDULER MOD: AF 20140225 - Send bugs to ***REMOVED*** !--------------- //
++
++
+ 
+ #ifdef CONFIG_SMP
+ /*
