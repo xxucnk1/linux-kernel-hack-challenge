@@ -63,6 +63,7 @@ is invalidated at different points in time from execution start.
 
 ### FAQ
 Q: Who arranges this challenge?
+
 Saab Aeronautics development department in Linköping, Sweden. 
 Saab Aeronautics offers advanced airborne systems, related subsystems, 
 Unmanned Aerial Systems (UAS), aerostructures and services to defense customers 
@@ -70,9 +71,11 @@ and commercial aerospace industries worldwide. Aeronautics is also responsible f
 development, production, marketing, selling and supporting of the Gripen fighter.
 
 Q: Why did you launch this contest?
+
 The goal of this contest is to solve a real-time problem. 
 The question at hand is whether Linux can be used to measure worst case execution time.
 
 Q: What happens when I win?
+
 The best proposed solution, will be published on github and the winner will be announced. 
 Saab contacts the winner with all details for the prize.
