@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Linux-kernel-hack-challenge : Contest for hacking the linux kernel to provide real-time characteristics.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Linux-kernel-hack-challenge</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/christoffer-nylen/linux-kernel-hack-challenge">View on GitHub</a>
+
+          <h1 id="project_title">Linux-kernel-hack-challenge</h1>
+          <h2 id="project_tagline">Contest for hacking the linux kernel to provide real-time characteristics.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/christoffer-nylen/linux-kernel-hack-challenge/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/christoffer-nylen/linux-kernel-hack-challenge/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="linux-kernel-hack-challenge" class="anchor" href="#linux-kernel-hack-challenge" aria-hidden="true"><span class="octicon octicon-link"></span></a>Linux Kernel Hack Challenge</h1>
+
+<p>Linux Kernel Hack Challenge is a contest to encourage Linux professionals to solve an execution time measurement problem. The winner solution will be awarded with a flight in a SAAB Gripen simulator including travel to Linköping, and accommodation.
+The task is to provide a Linux kernel modification that gives a more accurate worst-case execution time measurement taking into account cache effects. The winning solution may be used to verify execution time aspects of airborne software.</p>
+
+<h3>
+<a id="challenging-tasks" class="anchor" href="#challenging-tasks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Challenging tasks</h3>
+
+<ul>
+<li>Execute small applications uninterrupted by Linux in a small time-slot.</li>
+<li>Force a cache invalidation/flush at a specific point in time.</li>
+</ul>
+
+<h3>
+<a id="requirements" class="anchor" href="#requirements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Requirements</h3>
+
+<ul>
+<li>Linux kernel shall be 2.6.32, PowerPC e500v2.</li>
+<li>Deadline for your solution is 2015-02-28.</li>
+</ul>
+
+<h3>
+<a id="prices" class="anchor" href="#prices" aria-hidden="true"><span class="octicon octicon-link"></span></a>Prices</h3>
+
+<p>A flight in a SAAB Gripen simulator including a trip to Linköping, and accommodation. </p>
+
+<h3>
+<a id="benchmarking" class="anchor" href="#benchmarking" aria-hidden="true"><span class="octicon octicon-link"></span></a>Benchmarking</h3>
+
+<p>Benchmarking is done using acceptance test found in <a href="https://github.com/christoffer-nylen/linux-kernel-hack-challenge/raw/master/doc/KernelHackSpecification-1.0.0.docx">full specification</a>.</p>
+
+<h3>
+<a id="the-rules" class="anchor" href="#the-rules" aria-hidden="true"><span class="octicon octicon-link"></span></a>The rules</h3>
+
+<p>Prize is limited to European residents.
+All submitted solutions must comply with GPL v2 license.
+The winner takes it all!</p>
+
+<h3>
+<a id="how-do-i-proceed" class="anchor" href="#how-do-i-proceed" aria-hidden="true"><span class="octicon octicon-link"></span></a>How do I proceed?</h3>
+
+<p>Create a fork of this repo, clone it and initilize the linux submodule (which points at torvalds/linux 2.6.32).</p>
+
+<pre><code>$ git clone https://github.com/&lt;your repo&gt;
+$ git submodule sync
+$ git submodule update --init linux
+</code></pre>
+
+<p>We accept solutions as pull requests to this repo from 2015-02-25 to 2015-02-28.</p>
+
+<h3>
+<a id="readmemd" class="anchor" href="#readmemd" aria-hidden="true"><span class="octicon octicon-link"></span></a>./README.md</h3>
+
+<ul>
+<li>guides to other material</li>
+<li>FAQ for the linux kernel hack challenge</li>
+</ul>
+
+<h3>
+<a id="failed_profiling_lib" class="anchor" href="#failed_profiling_lib" aria-hidden="true"><span class="octicon octicon-link"></span></a>./FAILED_profiling_lib</h3>
+
+<p>Contains a FAILED attempt of a profiling library that contains the required APIs
+according to header file libprf.h</p>
+
+<h3>
+<a id="failed_linux_kernel_patch_attempt" class="anchor" href="#failed_linux_kernel_patch_attempt" aria-hidden="true"><span class="octicon octicon-link"></span></a>./FAILED_Linux_kernel_patch_attempt</h3>
+
+<p>Contains a FAILED attempt to change the Linux kernel scheduling - can be an
+inspiration?
+Uses a kernel module that must be installed to set up the interrupt handling.
+L1 invalidation cache for powerPC used here.
+Note: This is vital and must be used (powerPC e500v2) to be used by interrupt routine to 
+invalidate L1 cache. </p>
+
+<h3>
+<a id="l1_invalidate_kernel_module" class="anchor" href="#l1_invalidate_kernel_module" aria-hidden="true"><span class="octicon octicon-link"></span></a>./L1_invalidate_Kernel_module</h3>
+
+<p>Example of how to Invalidate L1 cache on a powerPC e500v2 architecture.
+Note: This is vital and must be used (powerPC) to be used by interrupt routine 
+to invalidate L1 cache. </p>
+
+<h3>
+<a id="testcase" class="anchor" href="#testcase" aria-hidden="true"><span class="octicon octicon-link"></span></a>./testcase</h3>
+
+<p>Test case that may prove the correctness of achieved work. Corresponds to Full 
+specification, Acceptance test 6. The principal characteristics of measured values 
+for this test when working is found in Powerpoint picture in ./doc/</p>
+
+<h3>
+<a id="linux-2632" class="anchor" href="#linux-2632" aria-hidden="true"><span class="octicon octicon-link"></span></a>./linux-2.6.32</h3>
+
+<p>config file for the linux kernel 2.6.32.</p>
+
+<h3>
+<a id="linux" class="anchor" href="#linux" aria-hidden="true"><span class="octicon octicon-link"></span></a>./linux</h3>
+
+<p>Submodule pointing at <a href="https://github.com/torvalds/linux/tree/v2.6.32">https://github.com/torvalds/linux/tree/v2.6.32</a></p>
+
+<h3>
+<a id="doc" class="anchor" href="#doc" aria-hidden="true"><span class="octicon octicon-link"></span></a>./doc</h3>
+
+<ul>
+<li>Short version of Linux kernel hack challenge.</li>
+<li>Longer technical specification of task, including Acceptance tests that define 
+behaviour of profiling when working.</li>
+<li>PowerPoint picture of expected time usage behaviour for the test case as L1 cache
+is invalidated at different points in time from execution start.</li>
+</ul>
+
+<h3>
+<a id="faq" class="anchor" href="#faq" aria-hidden="true"><span class="octicon octicon-link"></span></a>FAQ</h3>
+
+<ul>
+<li>Q: Who arranges this challenge?</li>
+</ul>
+
+<p>Saab Aeronautics development department in Linköping, Sweden. 
+Saab Aeronautics offers advanced airborne systems, related subsystems, 
+Unmanned Aerial Systems (UAS), aerostructures and services to defense customers 
+and commercial aerospace industries worldwide. Aeronautics is also responsible for 
+development, production, marketing, selling and supporting of the Gripen fighter.</p>
+
+<ul>
+<li>Q: Why did you launch this contest?</li>
+</ul>
+
+<p>The goal of this contest is to solve a real-time problem. 
+The question at hand is whether Linux can be used to measure worst case execution time.</p>
+
+<ul>
+<li>Q: What happens when I win?</li>
+</ul>
+
+<p>The best proposed solution, will be published on github and the winner will be announced. 
+Saab contacts the winner with all details for the prize, travel, and accommodation.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Linux-kernel-hack-challenge maintained by <a href="https://github.com/christoffer-nylen">christoffer-nylen</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
