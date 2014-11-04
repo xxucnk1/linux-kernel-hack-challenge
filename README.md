@@ -91,4 +91,4 @@ The question at hand is whether Linux can be used to measure worst case executio
 * Q: What happens when I win?
 
 The best proposed solution, will be published on github and the winner will be announced. 
-Saab contacts the winner with all details for the prize.
+Saab contacts the winner with all details for the prize, travel, and accommodation.
