@@ -4971,9 +4971,9 @@ unsigned long long task_sched_runtime(struct task_struct *p)
 
 	return ns;
 }
-// !----------------- SCHEDULER MOD: AF 20140225 - Send bugs to ***REMOVED*** !----------------- //
+
 EXPORT_SYMBOL(task_sched_runtime);
-// !--------------- EOF SCHEDULER MOD: AF 20140225 - Send bugs to ***REMOVED*** !--------------- //
+
 
 /*
  * Return sum_exec_runtime for the thread group.
@@ -5411,7 +5411,7 @@ pick_next_task(struct rq *rq)
 
 
 
-// !----------------- SCHEDULER MOD: AF 20140225 - Send bugs to ***REMOVED*** !----------------- //
+
 // The pid to lock the scheduler to run (set to 0 for scheduler to operate normally)
 static pid_t pid_force_run = 0;
 
@@ -5517,7 +5517,7 @@ need_resched_nonpreemptible:
 		goto need_resched;
 }
 EXPORT_SYMBOL(schedule);
-// !--------------- EOF SCHEDULER MOD: AF 20140225 - Send bugs to ***REMOVED*** !--------------- //
+
 
 
 
