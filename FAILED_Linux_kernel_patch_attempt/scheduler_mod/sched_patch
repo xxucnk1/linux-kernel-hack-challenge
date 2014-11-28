@@ -4,10 +4,9 @@
  
  	return ns;
  }
-+// !----------------- SCHEDULER MOD: AF 20140225 - Send bugs to ***REMOVED*** !----------------- //
+
 +EXPORT_SYMBOL(task_sched_runtime);
-+// !--------------- EOF SCHEDULER MOD: AF 20140225 - Send bugs to ***REMOVED*** !--------------- //
- 
+
  /*
   * Return sum_exec_runtime for the thread group.
 @@ -5406,8 +5409,39 @@
@@ -16,7 +15,6 @@
  
 +
 +
-+// !----------------- SCHEDULER MOD: AF 20140225 - Send bugs to ***REMOVED*** !----------------- //
 +// The pid to lock the scheduler to run (set to 0 for scheduler to operate normally)
 +static pid_t pid_force_run = 0;
 +
@@ -107,7 +105,6 @@
  		goto need_resched;
  }
  EXPORT_SYMBOL(schedule);
-+// !--------------- EOF SCHEDULER MOD: AF 20140225 - Send bugs to ***REMOVED*** !--------------- //
 +
 +
  
