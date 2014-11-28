@@ -15,7 +15,7 @@ The task is to provide a Linux kernel modification that gives a more accurate wo
 A flight in a SAAB Gripen simulator including a trip to Linköping, and accommodation. 
 
 ### Benchmarking
-Benchmarking is done using acceptance test found in [full specification] (https://github.com/christoffer-nylen/linux-kernel-hack-challenge/raw/master/doc/KernelHackSpecification-1.0.0.docx).
+Benchmarking is done using acceptance test found in [full specification] (https://github.com/christoffer-nylen/linux-kernel-hack-challenge/raw/master/doc/KernelHackSpecification-1.0.0.pdf).
 
 ### The rules
 Prize is limited to European residents.
